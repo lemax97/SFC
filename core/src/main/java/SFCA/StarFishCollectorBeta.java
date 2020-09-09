@@ -6,21 +6,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class StarFishCollectorBeta extends Game {
+public class StarFishCollectorBeta extends GameBeta {
 
     private Turtle turtle;
     private ActorBeta starfish;
     private ActorBeta ocean;
     private ActorBeta winMessage;
 
-    private Stage mainStage;
-
     private boolean win;
 
     @Override
-    public void create() {
-
-        mainStage = new Stage();
+    public void initialize() {
 
         ocean = new ActorBeta();
         ocean.setTexture(new Texture(Gdx.files.internal("assets/water.jpg")));
@@ -46,21 +42,13 @@ public class StarFishCollectorBeta extends Game {
 
     }
 
-    public void render(){
-        // check user input
-        mainStage.act(1/60f);
+    @Override
+    public void update(float dt) {
 
-        // check win condition: turtle must be overlapping starfish
         if (turtle.overlaps(starfish)){
             starfish.remove();
             winMessage.setVisible(true);
         }
 
-        // clear screen
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        // draw graphics
-        mainStage.draw();
     }
 }
